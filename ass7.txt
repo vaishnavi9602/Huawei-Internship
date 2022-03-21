@@ -1,0 +1,263 @@
+Assignment 
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="89dp"
+        android:text="@string/signup_page"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/name_id"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/name_id"
+        android:layout_width="330dp"
+        android:layout_height="45dp"
+        android:layout_marginBottom="31dp"
+        android:hint="Name"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Age_id"
+        app:layout_constraintEnd_toEndOf="@+id/Age_id"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/Age_id"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        android:autofillHints="" />
+
+    <EditText
+        android:id="@+id/Age_id"
+        android:layout_width="326dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="25dp"
+        android:hint="Age"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Bio_id"
+        app:layout_constraintEnd_toEndOf="@+id/Bio_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Bio_id"
+        app:layout_constraintTop_toBottomOf="@+id/name_id" />
+
+    <EditText
+        android:id="@+id/Bio_id"
+        android:layout_width="319dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="39dp"
+        android:hint="Bio"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/MobileNo_id"
+        app:layout_constraintEnd_toEndOf="@+id/MobileNo_id"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/MobileNo_id"
+        app:layout_constraintTop_toBottomOf="@+id/Age_id" />
+
+    <EditText
+        android:id="@+id/MobileNo_id"
+        android:layout_width="319dp"
+        android:layout_height="49dp"
+        android:layout_marginBottom="33dp"
+        android:hint="MobileNumber"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Location_id"
+        app:layout_constraintEnd_toEndOf="@+id/Location_id"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/Location_id"
+        app:layout_constraintTop_toBottomOf="@+id/Bio_id" />
+
+    <EditText
+        android:id="@+id/Location_id"
+        android:layout_width="311dp"
+        android:layout_height="59dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginBottom="41dp"
+        android:hint="Location"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/register_id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/MobileNo_id" />
+
+    <Button
+        android:id="@+id/register_id"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginBottom="285dp"
+        android:text="register"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Location_id" />
+
+MainActivity.java
+
+package com.example.myapplication;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+
+import android.content.Intent;
+
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText Name;
+    EditText Age;
+    EditText Bio;
+    EditText MobileNo;
+    EditText Location;
+    Button register;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Name =  findViewById(R.id.Name);
+        Age = findViewById(R.id.Age);
+        Bio = findViewById(R.id.Bio);
+        MobileNo= findViewById(R.id.MobileNo);
+        Location= findViewById(R.id.Location);
+        register =  findViewById(R.id.register);
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String str1 = Name.getText().toString();
+                String str2 = Age.getText().toString();
+                String str3 = Bio.getText().toString();
+                String str4 = MobileNo.getText().toString();
+                String str5 = Location.getText().toString();
+
+                Intent intent = new Intent(getApplicationContext(), Second_activity.class);
+                Bundle str = new Bundle();
+                str.putString("Name", str1);
+                str.putInt("Age", Integer.parseInt(str2));
+                str.putString("Bio", str3);
+                str.putInt("MobileNo", Integer.parseInt(str4));
+                str.putString("Location", str5);
+                intent.putExtras(str);
+
+                startActivity(intent);
+            }
+        });
+        }
+}
+
+Second_activity.java
+
+package com.example.myapplication;
+
+import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+public class Second_activity extends AppCompatActivity {
+
+    TextView receiver_msg;
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second_activity);
+
+        receiver_msg = findViewById(R.id.received_value_id);
+
+        // create the get Intent object
+        Intent intent = getIntent();
+        //Intent intent = getIntent();
+        Bundle str = intent.getExtras();
+        String name_str = str.getString("Name");
+        String age_str = str.getString("Age");
+        String bio_str=str.getString("Bio");
+        String mob_str=str.getString("MobileNo");
+        String location_str=str.getString("Location");
+
+        // receive the value by getStringExtra() method
+        // and key must be same which is send by first activity
+        // String str = intent.getStringExtra("message_key");
+
+        // display the string into textView
+        receiver_msg.setText(name_str);
+        receiver_msg.setText(age_str);
+        receiver_msg.setText(bio_str);
+        receiver_msg.setText(mob_str);
+        receiver_msg.setText(location_str);
+    }
+
+
+}
+
+activity_second_activity.xml
+
+package com.example.myapplication;
+
+import android.content.Intent;
+
+import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+import android.widget.TextView;
+public class Second_activity extends AppCompatActivity {
+
+    TextView receiver_msg;
+    @Override
+    protected void onCreate(Bundle savedInstanceState)
+    {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second_activity);
+
+        receiver_msg = findViewById(R.id.received_value_id);
+
+        // create the get Intent object
+        Intent intent = getIntent();
+        //Intent intent = getIntent();
+        Bundle str = intent.getExtras();
+        String name_str = str.getString("Name");
+        String age_str = str.getString("Age");
+        String bio_str=str.getString("Bio");
+        String mob_str=str.getString("MobileNo");
+        String location_str=str.getString("Location");
+
+        // receive the value by getStringExtra() method
+        // and key must be same which is send by first activity
+        // String str = intent.getStringExtra("message_key");
+
+        // display the string into textView
+        receiver_msg.setText(name_str);
+        receiver_msg.setText(age_str);
+        receiver_msg.setText(bio_str);
+        receiver_msg.setText(mob_str);
+        receiver_msg.setText(location_str);
+    }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
